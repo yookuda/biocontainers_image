@@ -2,7 +2,30 @@
 
 
 
-## Getting started
+## 全イメージのコマンド・共有ライブラリリストの取得
+
+```
+$ mkdir biotools_image_list
+$ touch biotools_image_list/dummy.txt
+$ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/biotools_image_list/dummy.txt
+```
+
+## json ファイルの生成
+```
+$ cd <実行日の日付ディレクトリ>
+$ for i in $(ls biotools_*.sh.o*);do perl ../create_json.pl $i > $i.json; done
+```
+
+## コマンド・共有ライブラリリスト取得済みイメージリストの生成
+```
+$ grep "^IMAGE" <実行日の日付>/* | perl -e 'while(<>){chomp;s/^.*?biotools_(.*?)\.sh.o\d+:IMAGE:(.*)$/$1\t$2\n/;s/^([^\t]+)_/$1\//;print;}' \
+> biotools_image_list/biotools_image_list_<実行日の日付>.txt
+$ cp biotools_image_list/biotools_image_list_<実行日の日付>.txt biotools_image_list/biotools_image_list_merged_<実行日の日付>.txt
+```
+
+
+
+
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
