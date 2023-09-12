@@ -1,6 +1,6 @@
 # biocontainers_image
 
-
+BioContainers の singularity image にインストールされているコマンド・R package を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するツールです。
 
 ## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得
 /usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド・共有ライブラリを取得する。
