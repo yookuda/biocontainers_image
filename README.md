@@ -1,6 +1,6 @@
 # biocontainers_image
 
-[BioContainers](https://biocontainers.pro/) の singularity image にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するツールです。
+[BioContainers](https://biocontainers.pro/) の singularity image にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
 
 ## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得
 /usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。
