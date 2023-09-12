@@ -134,3 +134,11 @@ zstdgrep
 zstdless
 zstdmt
 ```
+## BioContainers にインストールされている R package の SQLite3 DB の作成
+### R package 名とバージョンのファイル出力
+create_json.pl で出力したファイルから R がインストールされている BioContainers singularity image を抽出し、それぞれのイメージで installed_packages.R を実行してインストールされている R package の名称とバージョンを出力する。
+
+R を実行するには login.q のデフォルトのメモリ割り当て量である 4GB では足りないので、qlogin 時に 20GB 程度を割り当てること。
+```
+for i in <コマンドリスト取得実行日の日付ディレクトリ>/*.json; do python3 get_R_command_image_from_json.py $i; done
+```
