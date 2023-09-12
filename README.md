@@ -69,3 +69,68 @@ optional arguments:
                         outputs a list of commands contained in the specified
                         file path of singularity image.
 ```
+### コマンド名から singularity image を検索
+#### 単一のコマンド名での検索の場合
+--command または -c オプションで指定した文字列と完全一致するコマンドがインストールされている BioContainers singularity image のパスを表示する。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされているコマンドを検索する場合は注意すること。
+```
+$ ./search_command_db.py -c arriba
+/usr/local/biotools/a/arriba:1.0.1--h10824c4_0
+/usr/local/biotools/a/arriba:1.1.0--h10824c4_0
+/usr/local/biotools/a/arriba:1.1.0--h10824c4_1
+/usr/local/biotools/a/arriba:1.2.0--h248197f_1
+/usr/local/biotools/a/arriba:1.2.0--hc088bd4_0
+/usr/local/biotools/a/arriba:1.2.0--hd2e4403_2
+/usr/local/biotools/a/arriba:2.0.0--hd2e4403_0
+/usr/local/biotools/a/arriba:2.0.0--hd2e4403_1
+/usr/local/biotools/a/arriba:2.1.0--h3198e80_1
+/usr/local/biotools/a/arriba:2.1.0--ha025227_2
+/usr/local/biotools/a/arriba:2.1.0--hd2e4403_0
+/usr/local/biotools/a/arriba:2.2.0--h3198e80_0
+/usr/local/biotools/a/arriba:2.2.1--h3198e80_0
+/usr/local/biotools/a/arriba:2.2.1--ha025227_1
+/usr/local/biotools/a/arriba:2.2.1--hecb563c_2
+/usr/local/biotools/a/arriba:2.3.0--ha04fe3b_1
+/usr/local/biotools/a/arriba:2.3.0--haa8aa89_0
+/usr/local/biotools/a/arriba:2.4.0--h0033a41_2
+/usr/local/biotools/a/arriba:2.4.0--h6b7c446_1
+/usr/local/biotools/a/arriba:2.4.0--ha04fe3b_0
+```
+#### 複数のコマンド名での検索の場合
+--command または -c オプションで指定したすべてのコマンドがインストールされている BioContainers singularity image のパスを表示する。--command または -c オプションは何回でも指定できる。
+```
+$ ./search_command_db.py -c STAR -c rsem-prepare-reference
+/usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:606b713ec440e799d53a2b51a6e79dbfd28ecf3e-0
+/usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:64aad4a4e144878400649e71f42105311be7ed87-0
+```
+## イメージ名からインストールされているコマンドを検索
+--image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示する。
+```
+$ ./search_command_db.py -i arriba:2.4.0--ha04fe3b_0
+2to3
+2to3-3.11
+R
+Rscript
+STAR
+（中略）
+zstd
+zstdcat
+zstdgrep
+zstdless
+zstdmt
+```
+## イメージのファイルパスからインストールされているコマンドを検索
+--filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示する。
+```
+$ ./search_command_db.py -f /usr/local/biotools/a/arriba:2.4.0--ha04fe3b_0
+2to3
+2to3-3.11
+R
+Rscript
+STAR
+（中略）
+zstd
+zstdcat
+zstdgrep
+zstdless
+zstdmt
+```
