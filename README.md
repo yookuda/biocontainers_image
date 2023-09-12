@@ -32,3 +32,20 @@ $ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/b
 ```
 実行結果に対し、json ファイルの生成・コマンド・共有ライブラリリスト取得済みイメージリストの生成を実行する。
 
+## BioContainers にインストールされているコマンドの SQLite3 DB の作成
+```
+for i in <コマンドリスト取得実行日の日付ディレクトリ>/*.json; do python3 import_command.py $i command.db; done
+```
+### 作成されるテーブル
+```
+sqlite> .tables
+COMMAND_IMAGE_FILEPATH
+```
+### スキーマ
+```
+sqlite> .schema
+CREATE TABLE COMMAND_IMAGE_FILEPATH(command text, image text, filepath text);
+CREATE INDEX COMMAND_INDEX ON COMMAND_IMAGE_FILEPATH(command);
+CREATE INDEX IMAGE_INDEX ON COMMAND_IMAGE_FILEPATH(image);
+CREATE INDEX FILEPATH_INDEX ON COMMAND_IMAGE_FILEPATH(filepath);
+```
