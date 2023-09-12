@@ -102,7 +102,7 @@ $ ./search_command_db.py -c STAR -c rsem-prepare-reference
 /usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:606b713ec440e799d53a2b51a6e79dbfd28ecf3e-0
 /usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:64aad4a4e144878400649e71f42105311be7ed87-0
 ```
-## イメージ名からインストールされているコマンドを検索
+### イメージ名からインストールされているコマンドを検索
 --image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示する。
 ```
 $ ./search_command_db.py -i arriba:2.4.0--ha04fe3b_0
@@ -118,7 +118,7 @@ zstdgrep
 zstdless
 zstdmt
 ```
-## イメージのファイルパスからインストールされているコマンドを検索
+### イメージのファイルパスからインストールされているコマンドを検索
 --filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示する。
 ```
 $ ./search_command_db.py -f /usr/local/biotools/a/arriba:2.4.0--ha04fe3b_0
