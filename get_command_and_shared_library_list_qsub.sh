@@ -21,7 +21,21 @@ function output_and_exec_script () {
     qsub $1
 }
 
+if [ $# != 1 ]; then
+    echo "usage:bash $0 <image list file>"
+    exit 1
+fi
+
 BASE_LIST=$1
+
+if [ ! -e $BASE_LIST ]; then
+    echo "${BASE_LIST} is not exists."
+    exit
+fi
+
+DATE=`date '+%Y%m%d'`
+mkdir $DATE
+cd $DATE
 
 for D in $(ls /usr/local/biotools); do
     if [ ${D} = 'bioconductor' ]; then
