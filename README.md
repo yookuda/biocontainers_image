@@ -28,7 +28,7 @@ $ cp biotools_image_list/biotools_image_list_<実行日の日付>.txt biotools_i
 ```
 
 ## 新規追加イメージのコマンド・共有ライブラリリストの取得（2回目以降）
-/usr/local/biotools/ 以下に新規追加された singularity image から、インストールされているコマンド・共有ライブラリを取得します。前回実行時までの singularity image リストファイルを参照して、リストに存在しないイメージからデータを取得します。
+新規に生成された BioContainers の singularity image は毎週 /usr/local/biotools/ 以下にインストールされます。新規追加された singularity image から、インストールされているコマンド・共有ライブラリを取得します。前回実行時までの singularity image リストファイルを参照して、リストに存在しないイメージからデータを取得します。
 ```
 $ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/biotools_image_list/biotools_image_list_merged_<前回の実行日の日付>.txt
 ```
