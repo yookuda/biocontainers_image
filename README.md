@@ -2,8 +2,8 @@
 
 [BioContainers](https://biocontainers.pro/) の singularity image にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
 
-## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得
-/usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。
+## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得（初回）
+/usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。処理の並列実行のためにUGEを使用しています。
 ```
 $ mkdir biotools_image_list
 $ touch biotools_image_list/dummy.txt
@@ -11,7 +11,7 @@ $ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/b
 ```
 
 ## json ファイルの生成
-get_command_and_shared_library_list_qsub.sh の実行結果から jsonファイルを生成します。生成されるjsonファイルはsolrへのデータ投入に使用する想定で作成したものです。
+get_command_and_shared_library_list_qsub.sh の実行結果から jsonファイルを生成します。生成されるjsonファイルはsolrへのデータ投入に使用する想定で作成しています。
 ```
 $ cd <実行日の日付ディレクトリ>
 $ for i in $(ls biotools_*.sh.o*);do perl ../create_json.pl $i > $i.json; done
@@ -25,12 +25,22 @@ $ grep "^IMAGE" <実行日の日付>/* | perl -e 'while(<>){chomp;s/^.*?biotools
 $ cp biotools_image_list/biotools_image_list_<実行日の日付>.txt biotools_image_list/biotools_image_list_merged_<実行日の日付>.txt
 ```
 
-## 新規追加イメージのコマンド・共有ライブラリリストの取得
+## 新規追加イメージのコマンド・共有ライブラリリストの取得（2回目以降）
 /usr/local/biotools/ 以下に新規追加された singularity image から、インストールされているコマンド・共有ライブラリを取得します。前回実行時までの singularity image リストファイルを参照して、リストに存在しないイメージからデータを取得します。
 ```
 $ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/biotools_image_list/biotools_image_list_merged_<前回の実行日の日付>.txt
 ```
-この後、実行結果に対し初回と同様に json ファイルの生成・コマンド・共有ライブラリリスト取得済みイメージリストの生成を実行します。
+この後、実行結果に対し初回と同様に json ファイルの生成を行います。
+
+## コマンド・共有ライブラリリスト取得済みイメージリストの更新
+新規追加された singularity image のリストを生成し、データ取得済みの singularity image リストを更新します。
+```
+$ grep "^IMAGE" <今回実行時の日付>/* | perl -e 'while(<>){chomp;s/^.*?biotools_(.*?)\.sh.o\d+:IMAGE:(.*)$/$1\t$2\n/;s/^([^\t]+)_/$1\//;print;}' \
+> biotools_image_list/biotools_image_list_<今回実行時の日付>.txt
+$ cat biotools_image_list/biotools_image_list_merged_<前回実行時の日付>.txt biotools_image_list/biotools_image_list_<今回実行時の日付>.txt | sort \
+> biotools_image_list/biotools_image_list_merged_<今回実行時の日付>.txt
+```
+biotools_image_list/biotools_image_list_merged_<今回実行時の日付>.txt がデータ取得済みの全イメージのリストになります。
 
 ## BioContainers にインストールされているコマンドの SQLite3 DB の作成
 create_json.pl で生成した json ファイルからデータを取り出し、SQLite3 DB (command.db) を作成します。
