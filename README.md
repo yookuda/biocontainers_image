@@ -63,7 +63,7 @@ CREATE INDEX IMAGE_INDEX ON COMMAND_IMAGE_FILEPATH(image);
 CREATE INDEX FILEPATH_INDEX ON COMMAND_IMAGE_FILEPATH(filepath);
 ```
 ## コマンド検索スクリプトの使用方法
-search_command_db.py は SQLite3 DB (command.db) 検索の簡略化のためのスクリプトです。
+search_command_db.py は SQLite3 DB (command.db) を簡易に検索するためのスクリプトです。
 ### help
 -h オプションでヘルプを表示します。
 ```
@@ -94,16 +94,7 @@ $ ./search_command_db.py -c arriba
 /usr/local/biotools/a/arriba:1.1.0--h10824c4_1
 /usr/local/biotools/a/arriba:1.2.0--h248197f_1
 /usr/local/biotools/a/arriba:1.2.0--hc088bd4_0
-/usr/local/biotools/a/arriba:1.2.0--hd2e4403_2
-/usr/local/biotools/a/arriba:2.0.0--hd2e4403_0
-/usr/local/biotools/a/arriba:2.0.0--hd2e4403_1
-/usr/local/biotools/a/arriba:2.1.0--h3198e80_1
-/usr/local/biotools/a/arriba:2.1.0--ha025227_2
-/usr/local/biotools/a/arriba:2.1.0--hd2e4403_0
-/usr/local/biotools/a/arriba:2.2.0--h3198e80_0
-/usr/local/biotools/a/arriba:2.2.1--h3198e80_0
-/usr/local/biotools/a/arriba:2.2.1--ha025227_1
-/usr/local/biotools/a/arriba:2.2.1--hecb563c_2
+（中略）
 /usr/local/biotools/a/arriba:2.3.0--ha04fe3b_1
 /usr/local/biotools/a/arriba:2.3.0--haa8aa89_0
 /usr/local/biotools/a/arriba:2.4.0--h0033a41_2
@@ -149,7 +140,7 @@ zstdgrep
 zstdless
 zstdmt
 ```
-## BioContainers にインストールされている R package の SQLite3 DB の作成
+## BioContainers singularity image にインストールされている R package の SQLite3 DB の作成
 ### R package 名とバージョンのファイル出力
 create_json.pl で出力したファイルから R がインストールされている BioContainers singularity image を抽出し、それぞれのイメージで installed_packages.R を実行してインストールされている R package の名称とバージョンを出力します。
 
