@@ -2,7 +2,7 @@
 
 遺伝研スーパーコンピューターシステムには [BioContainers](https://biocontainers.pro/) の singularity image がインストールされています。本ツールは、このイメージ中にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
 
-※本ツールの実行結果については /usr/local/experimental/ に配置予定です。
+※本ツールの実行結果については /lustre7/software/experimental/ に配置されています。
 
 ## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得（初回）
 /usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。処理の並列実行のためにUGEを使用しています。
@@ -64,6 +64,8 @@ CREATE INDEX FILEPATH_INDEX ON COMMAND_IMAGE_FILEPATH(filepath);
 ```
 ## コマンド検索スクリプトの使用方法
 search_command_db.py は SQLite3 DB (command.db) を簡易に検索するためのスクリプトです。
+
+スクリプト中のDB_PATH変数のパスをcommand.dbの場所に合わせて変更すること。
 ### help
 -h オプションでヘルプを表示します。
 ```
@@ -145,6 +147,8 @@ zstdmt
 create_json.pl で出力したファイルから R がインストールされている BioContainers singularity image を抽出し、それぞれのイメージで installed_packages.R を実行してインストールされている R package の名称とバージョンを出力します。
 
 R を実行するには login.q のデフォルトのメモリ割り当て量である 4GB では足りないので、qlogin 時に 20GB 程度を割り当てること。
+
+BASE変数のパスを実行環境に合わせて変更すること。
 ```
 for i in <コマンドリスト取得実行日の日付ディレクトリ>/*.json; do python3 get_R_command_image_from_json.py $i; done
 ```
@@ -169,6 +173,8 @@ CREATE INDEX FILEPATH_INDEX ON PACKAGE_VERSION_IMAGE_FILEPATH(filepath);
 ```
 ## R package 検索スクリプトの使用方法
 search_R_packge_db.py は SQLite3 DB (R_package.db) 検索の簡略化のためのスクリプトです。
+
+スクリプト中のDB_PATH変数のパスをR_package.dbの場所に合わせて変更すること。
 ### help
 -h オプションでヘルプを表示します。
 ```
