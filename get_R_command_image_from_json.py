@@ -8,8 +8,9 @@ import re
 import subprocess
 import os
 
-SCRIPT = '/home/y-okuda/biocontainers/installed_packages.R'
-OUTPUT_DIR = '/home/y-okuda/biocontainers/R_package_data'
+BASE = '/lustre7/software/experimental/biocontainers_image'
+SCRIPT = BASE + '/installed_packages.R'
+OUTPUT_DIR = BASE + '/R_package_data'
 
 def main():
     p1 = re.compile(r'\n')
@@ -33,7 +34,8 @@ def main():
         OUTPUT_FILE = OUTPUT_DIR + '/' + subdir + '/' + image[1] + '.txt'
         if not os.path.isfile(OUTPUT_FILE):
             #print(IMAGE_PATH)
-            subprocess.run(["singularity", "exec", IMAGE_PATH, "Rscript", SCRIPT, OUTPUT_FILE])
+            volume = BASE + ':' + BASE
+            subprocess.run(["singularity", "exec", "-B", volume, IMAGE_PATH, "Rscript", SCRIPT, OUTPUT_FILE])
 
 if __name__ == '__main__':
     main()

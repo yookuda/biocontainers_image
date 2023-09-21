@@ -7,7 +7,6 @@ use JSON;
 
 open IN, $ARGV[0] or die;
 my $dir = '';
-#my $data = { 'dir' => '', 'image' => '', 'commands' => [], 'shared_libraries' => [] };
 my $data = undef;
 while (<IN>) {
     chomp;

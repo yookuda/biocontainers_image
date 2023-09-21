@@ -2,7 +2,7 @@
 import argparse
 import subprocess
 
-DB_PATH = '/home/y-okuda/biocontainers/R_package.db'
+DB_PATH = '/lustre7/software/experimental/biocontainers_image/R_package.db'
 
 def main():
     args = parse_args()
