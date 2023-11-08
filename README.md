@@ -1,4 +1,4 @@
-# biocontainers_image
+# biocontainers_image検索スクリプト
 
 遺伝研スーパーコンピューターシステムには [BioContainers](https://biocontainers.pro/) の singularity image がインストールされています。本ツールは、このイメージ中にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
 
