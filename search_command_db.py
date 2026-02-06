@@ -2,7 +2,7 @@
 import argparse
 import subprocess
 
-DB_PATH = '/lustre7/software/experimental/biocontainers_image/command.db'
+DB_PATH = '/lustre10/software/experimental/biocontainers_image/command.db'
 
 def main():
     args = parse_args()

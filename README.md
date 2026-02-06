@@ -1,8 +1,8 @@
 # biocontainers_image検索スクリプト
 
-遺伝研スーパーコンピューターシステムには [BioContainers](https://biocontainers.pro/) の singularity image がインストールされています。本ツールは、このイメージ中にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
+遺伝研スーパーコンピューターシステムには [BioContainers](https://biocontainers.pro/) の apptainer (singularity) image がインストールされています。本ツールは、このイメージ中にインストールされているコマンド名や R package 名を抽出してSQLite3 DBに格納し、コマンド名・R package名でインストールされている singularity image を検索するためのツールです。
 
-本ツールは /lustre7/software/experimental/ に配置されています。
+本ツールは /lustre10/software/experimental/ に配置されています。
 
 ## コマンド検索スクリプト search_command_db.py の使用方法
 search_command_db.py は SQLite3 DB (command.db) を簡易に検索するためのスクリプトです。
@@ -30,7 +30,7 @@ optional arguments:
 ```
 ### コマンド名から singularity image を検索
 #### 単一のコマンド名での検索の場合
---command または -c オプションで指定した文字列と完全一致するコマンドがインストールされている BioContainers singularity image のパスを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされているコマンドを検索する場合は注意すること。
+--command または -c オプションで指定した文字列と完全一致するコマンドがインストールされている BioContainers apptainer (singularity) image のパスを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされているコマンドを検索する場合は注意すること。
 ```
 $ ./search_command_db.py -c arriba
 /usr/local/biotools/a/arriba:1.0.1--h10824c4_0
@@ -46,14 +46,14 @@ $ ./search_command_db.py -c arriba
 /usr/local/biotools/a/arriba:2.4.0--ha04fe3b_0
 ```
 #### 複数のコマンド名での検索の場合
---command または -c オプションで指定したすべてのコマンドがインストールされている BioContainers singularity image のパスを表示します。--command または -c オプションは何回でも指定できます。
+--command または -c オプションで指定したすべてのコマンドがインストールされている BioContainers apptainer (singularity) image のパスを表示します。--command または -c オプションは何回でも指定できます。
 ```
 $ ./search_command_db.py -c STAR -c rsem-prepare-reference
 /usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:606b713ec440e799d53a2b51a6e79dbfd28ecf3e-0
 /usr/local/biotools/m/mulled-v2-cf0123ef83b3c38c13e3b0696a3f285d3f20f15b:64aad4a4e144878400649e71f42105311be7ed87-0
 ```
 ### イメージ名からインストールされているコマンドを検索
---image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示します。
+--image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers apptainer (singularity) image の /usr/local/bin/ にインストールされているコマンドを表示します。
 ```
 $ ./search_command_db.py -i arriba:2.4.0--ha04fe3b_0
 2to3
@@ -69,7 +69,7 @@ zstdless
 zstdmt
 ```
 ### イメージのファイルパスからインストールされているコマンドを検索
---filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers singularity image の /usr/local/bin/ にインストールされているコマンドを表示します。
+--filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers apptainer (singularity) image の /usr/local/bin/ にインストールされているコマンドを表示します。
 ```
 $ ./search_command_db.py -f /usr/local/biotools/a/arriba:2.4.0--ha04fe3b_0
 2to3
@@ -113,7 +113,7 @@ optional arguments:
 ```
 ### R package 名から singularity image を検索
 #### バージョンを指定しない場合
---package または -p オプションで指定した文字列と完全一致する R package がインストールされている BioContainers singularity image のパスとインストールされている R package のバージョンを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされている R package を検索する場合は注意すること。
+--package または -p オプションで指定した文字列と完全一致する R package がインストールされている BioContainers apptainer (singularity) image のパスとインストールされている R package のバージョンを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされている R package を検索する場合は注意すること。
 ```
 $ ./search_R_package_db.py -p phangorn
 2.10.0|/usr/local/biotools/f/forwardgenomics:1.0--hdfd78af_0
@@ -130,7 +130,7 @@ $ ./search_R_package_db.py -p phangorn
 
 ```
 #### バージョンを指定する場合
---package または -p オプションで R package 名を指定するとともに、--version または -v オプションで R package のバージョンを指定します。該当する R package のインストールされている BioContainers singularity image のパスが表示されます。
+--package または -p オプションで R package 名を指定するとともに、--version または -v オプションで R package のバージョンを指定します。該当する R package のインストールされている BioContainers apptainer (singularity) image のパスが表示されます。
 ```
 $ ./search_R_package_db.py -p phangorn -v 2.11.1
 /usr/local/biotools/bioconductor/d/bioconductor-dialignr:2.6.0--r42hf17093f_1
@@ -147,7 +147,7 @@ $ ./search_R_package_db.py -p phangorn -v 2.11.1
 
 ```
 ### イメージ名からインストールされている R package を検索
---image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers singularity image にインストールされている R package とバージョンを表示します。
+--image または -i オプションで指定した文字列と完全一致するファイル名の BioContainers apptainer (singularity) image にインストールされている R package とバージョンを表示します。
 ```
 $ ./search_R_package_db.py -i bioconductor-dialignr:2.8.0--r43hf17093f_0
 Biobase|2.60.0
@@ -164,7 +164,7 @@ zoo|1.8-12
 
 ```
 #### イメージのファイルパスからインストールされているコマンドを検索
---filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers singularity image にインストールされている R package 名とバージョンを表示します。
+--filepath または -f オプションで指定した文字列と一致するファイルパスの BioContainers apptainer (singularity) image にインストールされている R package 名とバージョンを表示します。
 ```
 $ ./search_R_package_db.py -f /usr/local/biotools/bioconductor/d/bioconductor-dialignr:2.8.0--r43hf17093f_0
 Biobase|2.60.0
@@ -183,22 +183,22 @@ zoo|1.8-12
 
 # 管理者によるDBメンテナンスについて
 ## /usr/local/biotools/ 以下の全イメージのコマンド・共有ライブラリリストの取得（初回）
-/usr/local/biotools/ 以下に配置されているすべての singularity image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。処理の並列実行のためにUGEを使用しています。
+/usr/local/biotools/ 以下に配置されているすべての apptainer (singularity) image から、インストールされているコマンド（/usr/local/bin/ 以下が対象）・共有ライブラリ（/usr/ 以下が対象）を取得します。実行日の日付（yyyymmdd）でディレクトリが生成され、ディレクトリ中に qsub で実行されるスクリプトとその実行結果が格納されます。処理の並列実行のためにSlurmを使用しています。
 ```
 $ mkdir biotools_image_list
 $ touch biotools_image_list/dummy.txt
-$ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/biotools_image_list/dummy.txt
+$ bash get_command_and_shared_library_list_sbatch.sh /home/y-okuda/biocontainers/biotools_image_list/dummy.txt
 ```
 
 ## json ファイルの生成
-get_command_and_shared_library_list_qsub.sh の実行結果から jsonファイルを生成します。生成されるjsonファイルはsolrへのデータ投入に使用する想定で作成しています。
+get_command_and_shared_library_list_sbatch.sh の実行結果から jsonファイルを生成します。生成されるjsonファイルはsolrへのデータ投入に使用する想定で作成しています。
 ```
 $ cd <実行日の日付ディレクトリ>
 $ for i in $(ls biotools_*.sh.o*);do perl ../create_json.pl $i > $i.json; done
 ```
 
 ## コマンド・共有ライブラリリスト取得済みイメージリストの生成
-get_command_and_shared_library_list_qsub.sh の実行結果から、コマンド・共有ライブラリのリストを取得した singularity image のリストを生成します。このリストに記載されている singularity image はすでにデータ取得済みであるため、次回の実行時には処理が不要です。
+get_command_and_shared_library_list_sbatch.sh の実行結果から、コマンド・共有ライブラリのリストを取得した apptainer (singularity) image のリストを生成します。このリストに記載されている apptainer (singularity) image はすでにデータ取得済みであるため、次回の実行時には処理が不要です。
 ```
 $ grep "^IMAGE" <実行日の日付>/* | perl -e 'while(<>){chomp;s/^.*?biotools_(.*?)\.sh.o\d+:IMAGE:(.*)$/$1\t$2\n/;s/^([^\t]+)_/$1\//;print;}' \
 > biotools_image_list/biotools_image_list_<実行日の日付>.txt
@@ -206,14 +206,14 @@ $ cp biotools_image_list/biotools_image_list_<実行日の日付>.txt biotools_i
 ```
 
 ## 新規追加イメージのコマンド・共有ライブラリリストの取得（2回目以降）
-新規に生成された BioContainers の singularity image は毎週 /usr/local/biotools/ 以下にインストールされます。新規追加された singularity image から、インストールされているコマンド・共有ライブラリを取得します。前回実行時までの singularity image リストファイルを参照して、リストに存在しないイメージからデータを取得します。
+新規に生成された BioContainers の apptainer (singularity) image は毎週 /usr/local/biotools/ 以下にインストールされます。新規追加された apptainer (singularity) image から、インストールされているコマンド・共有ライブラリを取得します。前回実行時までの apptainer (singularity) image リストファイルを参照して、リストに存在しないイメージからデータを取得します。
 ```
-$ bash get_command_and_shared_library_list_qsub.sh /home/y-okuda/biocontainers/biotools_image_list/biotools_image_list_merged_<前回の実行日の日付>.txt
+$ bash get_command_and_shared_library_list_sbatch.sh /home/y-okuda/biocontainers/biotools_image_list/biotools_image_list_merged_<前回の実行日の日付>.txt
 ```
 この後、実行結果に対し初回と同様に json ファイルの生成を行います。
 
 ## コマンド・共有ライブラリリスト取得済みイメージリストの更新
-新規追加された singularity image のリストを生成し、データ取得済みの singularity image リストを更新します。
+新規追加された apptainer (singularity) image のリストを生成し、データ取得済みの apptainer (singularity) image リストを更新します。
 ```
 $ grep "^IMAGE" <今回実行時の日付>/* | perl -e 'while(<>){chomp;s/^.*?biotools_(.*?)\.sh.o\d+:IMAGE:(.*)$/$1\t$2\n/;s/^([^\t]+)_/$1\//;print;}' \
 > biotools_image_list/biotools_image_list_<今回実行時の日付>.txt
@@ -242,7 +242,7 @@ CREATE INDEX FILEPATH_INDEX ON COMMAND_IMAGE_FILEPATH(filepath);
 ```
 ## BioContainers singularity image にインストールされている R package の SQLite3 DB の作成
 ### R package 名とバージョンのファイル出力
-create_json.pl で出力したファイルから R がインストールされている BioContainers singularity image を抽出し、それぞれのイメージで installed_packages.R を実行してインストールされている R package の名称とバージョンを出力します。
+create_json.pl で出力したファイルから R がインストールされている BioContainers apptainer (singularity) image を抽出し、それぞれのイメージで installed_packages.R を実行してインストールされている R package の名称とバージョンを出力します。
 
 R を実行するには login.q のデフォルトのメモリ割り当て量である 4GB では足りないので、qlogin 時に 20GB 程度を割り当てること。
 
