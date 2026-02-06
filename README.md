@@ -28,7 +28,7 @@ optional arguments:
                         outputs a list of commands contained in the specified
                         file path of singularity image.
 ```
-### コマンド名から singularity image を検索
+### コマンド名から apptainer (singularity) image を検索
 #### 単一のコマンド名での検索の場合
 --command または -c オプションで指定した文字列と完全一致するコマンドがインストールされている BioContainers apptainer (singularity) image のパスを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされているコマンドを検索する場合は注意すること。
 ```
@@ -111,7 +111,7 @@ optional arguments:
   -v VERSION, --version VERSION
                         specify the version of R package.
 ```
-### R package 名から singularity image を検索
+### R package 名から apptainer (singularity) image を検索
 #### バージョンを指定しない場合
 --package または -p オプションで指定した文字列と完全一致する R package がインストールされている BioContainers apptainer (singularity) image のパスとインストールされている R package のバージョンを表示します。ヒットしたすべてのイメージのパスが返ってくるため、多数のイメージにインストールされている R package を検索する場合は注意すること。
 ```
